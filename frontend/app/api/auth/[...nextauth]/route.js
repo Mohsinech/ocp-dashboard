@@ -13,20 +13,29 @@ export const authOptions = {
       },
       async authorize(credentials) {
         const db = await connectToDB();
+        const user = await db.collection("users").findOne({
+          email: credentials.email.toLowerCase().trim(),
+        });
 
-        const user = await db
-          .collection("users")
-          .findOne({ email: credentials.email });
-
-        if (!user) return null;
+        if (!user) {
+          throw new Error("Aucun compte trouvé pour cet email.");
+        }
 
         const isValid = await verifyPassword(
           credentials.password,
           user.password
         );
-        if (!isValid) return null;
+        if (!isValid) {
+          throw new Error("Mot de passe incorrect.");
+        }
 
-        if (!user.approved) return null;
+        if (user.approved === false) {
+          throw new Error("Votre soumission a été refusée.");
+        }
+
+        if (user.approved === null) {
+          throw new Error("Votre soumission est en cours de révision.");
+        }
 
         return {
           id: user._id.toString(),
@@ -38,7 +47,6 @@ export const authOptions = {
       },
     }),
   ],
-
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -50,7 +58,6 @@ export const authOptions = {
       }
       return token;
     },
-
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.email = token.email;
@@ -60,19 +67,15 @@ export const authOptions = {
       return session;
     },
   },
-
   session: {
     strategy: "jwt",
   },
-
   pages: {
     signIn: "/login",
     error: "/login",
   },
-
   secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

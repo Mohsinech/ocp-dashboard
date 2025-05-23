@@ -7,7 +7,7 @@ export async function fetchSubmissionsFromDB() {
   // For example, fetch users who are not yet approved or verified
   const submissions = await db
     .collection("users")
-    .find({ approved: false }) // or your actual filter for "pending submissions"
+    .find({ approved: null }) // or your actual filter for "pending submissions"
     .toArray();
 
   return submissions.map((user) => ({

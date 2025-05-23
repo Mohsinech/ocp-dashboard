@@ -48,7 +48,7 @@ const SignupForm = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      const data = await res.json({});
 
       if (res.ok) {
         router.push("/review-submission");
