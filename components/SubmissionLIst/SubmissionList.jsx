@@ -4,12 +4,13 @@ import React, { useState } from "react";
 
 export default function SubmissionsList({ submissions }) {
   const [expandedId, setExpandedId] = useState(null);
+  const [submissionList, setSubmissionList] = useState(submissions);
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
-  //
+  // Function to handle the action (approve/reject)
   const handleAction = async (userId, action) => {
     const res = await fetch("/api/submissions/respond", {
       method: "POST",
@@ -18,15 +19,19 @@ export default function SubmissionsList({ submissions }) {
     });
 
     const data = await res.json();
-    if (data.success) alert("Action completed!");
-    else alert("Error: " + data.error);
+    if (data.success) {
+      alert("Action completed!");
+      setSubmissionList(submissionList.filter((s) => s._id !== userId));
+    } else {
+      alert("Error: " + data.error);
+    }
   };
 
   return (
     <div>
       {submissions.length === 0 && <p>No submissions found.</p>}
 
-      {submissions.map((submission) => (
+      {submissionList.map((submission) => (
         <div
           key={submission._id}
           style={{
@@ -80,7 +85,7 @@ export default function SubmissionsList({ submissions }) {
               borderRadius: "3px",
               cursor: "pointer",
             }}
-            onClick={() => handleAction(user._id, "approve")}
+            onClick={() => handleAction(user._id, "reject")}
           >
             Approve
           </button>
@@ -94,7 +99,7 @@ export default function SubmissionsList({ submissions }) {
               borderRadius: "3px",
               cursor: "pointer",
             }}
-            onClick={() => handleAction(user._id, "reject")}
+            onClick={() => handleAction(submission._id, "reject")}
           >
             Reject
           </button>
