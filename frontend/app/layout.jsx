@@ -3,8 +3,9 @@
 import React from "react";
 import "@/styles/globals.css";
 import useLenis from "@/hooks/Lenis";
+import { SessionProvider } from "next-auth/react";
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, session }) {
   useLenis();
 
   return (
@@ -12,7 +13,9 @@ export default function RootLayout({ children }) {
       <head>
         <title>My App</title>
       </head>
-      <body>{children}</body>
+      <body>
+        <SessionProvider session={session}>{children}</SessionProvider>
+      </body>
     </html>
   );
 }

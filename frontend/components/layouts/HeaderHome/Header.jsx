@@ -18,7 +18,7 @@ const HeaderHome = () => {
       {/* CTA Button */}
       <div className={styles.cta}>
         <Button variant="secondary" className={`${styles.cta_btn} bg-white`}>
-          <Link href="/Login">Login</Link>
+          <Link href="/login">Login</Link>
         </Button>
         <Button
           variant="outline"
