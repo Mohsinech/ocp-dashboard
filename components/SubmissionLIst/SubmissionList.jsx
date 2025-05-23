@@ -9,6 +9,19 @@ export default function SubmissionsList({ submissions }) {
     setExpandedId(expandedId === id ? null : id);
   };
 
+  //
+  const handleAction = async (userId, action) => {
+    const res = await fetch("/api/submissions", {
+      method: "POST",
+      body: JSON.stringify({ userId, action }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+    if (data.success) alert("Action completed!");
+    else alert("Error: " + data.error);
+  };
+
   return (
     <div>
       {submissions.length === 0 && <p>No submissions found.</p>}
@@ -67,6 +80,7 @@ export default function SubmissionsList({ submissions }) {
               borderRadius: "3px",
               cursor: "pointer",
             }}
+            onClick={() => handleAction(user._id, "approve")}
           >
             Approve
           </button>
@@ -80,6 +94,7 @@ export default function SubmissionsList({ submissions }) {
               borderRadius: "3px",
               cursor: "pointer",
             }}
+            onClick={() => handleAction(user._id, "reject")}
           >
             Reject
           </button>
