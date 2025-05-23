@@ -11,7 +11,7 @@ export default function SubmissionsList({ submissions }) {
 
   //
   const handleAction = async (userId, action) => {
-    const res = await fetch("/api/submissions", {
+    const res = await fetch("/api/submissions/respond", {
       method: "POST",
       body: JSON.stringify({ userId, action }),
       headers: { "Content-Type": "application/json" },
