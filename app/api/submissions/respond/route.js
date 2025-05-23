@@ -4,11 +4,8 @@ import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 import { ObjectId } from "mongodb";
 
-const generateCredentials = () => {
-  const username = "user" + Math.floor(Math.random() * 10000);
-  const password = Math.random().toString(36).slice(-8);
-  return { username, password };
-};
+// Only generate password now (no username)
+const generatePassword = () => Math.random().toString(36).slice(-8);
 
 const sendEmail = async (to, subject, text) => {
   const transporter = nodemailer.createTransport({
@@ -39,14 +36,13 @@ export async function POST(req) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
 
   if (action === "approve") {
-    const { username, password } = generateCredentials();
+    const password = generatePassword();
     const hashed = await bcrypt.hash(password, 10);
 
     await db.collection("users").updateOne(
       { _id: user._id },
       {
         $set: {
-          username,
           password: hashed,
           reviewed: true,
           approved: true,
@@ -57,7 +53,7 @@ export async function POST(req) {
     await sendEmail(
       user.email,
       "Account Approved",
-      `You have been approved! Your login: ${username}, Password: ${password}`
+      `You have been approved!\nLogin with your email: ${user.email}\nPassword: ${password}`
     );
   } else {
     await db.collection("users").updateOne(
