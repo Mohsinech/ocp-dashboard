@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { fetchSubmissionsFromDB } from "@/lib/submissions";
 import SubmissionsList from "@/components/SubmissionLIst/SubmissionList";
+import { HeaderDashboard } from "@/components/index";
 
 export default async function submissions() {
   const session = await getServerSession(authOptions);
@@ -16,9 +17,12 @@ export default async function submissions() {
   const submissions = await fetchSubmissionsFromDB();
 
   return (
-    <div>
-      <h1>Pending Submissions</h1>
-      <SubmissionsList submissions={submissions} />
-    </div>
+    <>
+      <HeaderDashboard />
+      <div>
+        <h1>Pending Submissions</h1>
+        <SubmissionsList submissions={submissions} />
+      </div>
+    </>
   );
 }

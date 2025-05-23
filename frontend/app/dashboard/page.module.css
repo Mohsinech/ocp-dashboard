@@ -1,0 +1,89 @@
+.dashboard {
+  width: 100%;
+  height: 100vh; /* Change later */
+  background-color: #000;
+  display: flex;
+}
+
+.side {
+  width: 20%;
+  height: 100vh;
+  background-color: #11005a;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.tab h1 {
+  color: #fff;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  font-family: "montreal", sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 1rem;
+}
+
+.flex_col_tabs,
+.last_tab {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.under {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 1rem;
+}
+
+.flex_col_tabs h2,
+.last_tab h2 {
+  color: #ccc;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  font-family: "sans", sans-serif;
+  padding: 0 1rem;
+}
+
+.tab a,
+.last_tab nav {
+  font-family: "sans", sans-serif;
+  cursor: pointer;
+
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  transition: 0.4s all;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.tab a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+}
+
+/* Dashboard Content */
+.dashboard_content {
+  position: absolute;
+  right: 0;
+  width: 80%;
+  height: 100vh;
+  background-color: #fff;
+}
