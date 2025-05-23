@@ -85,7 +85,7 @@ export default function SubmissionsList({ submissions }) {
               borderRadius: "3px",
               cursor: "pointer",
             }}
-            onClick={() => handleAction(user._id, "reject")}
+            onClick={() => handleAction(submission._id, "approve")}
           >
             Approve
           </button>
