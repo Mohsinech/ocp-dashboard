@@ -24,7 +24,7 @@ export default async function DashboardLayout({ children }) {
           <div className={styles.tab}>
             <h1>Welcome to X Dashboard</h1>
 
-            <div className={`${styles.flex_col_tabs} ${styles.under}`}>
+            <div className={`${styles.flex_col_tabs}`}>
               <h2>Main Menu</h2>
 
               <Link href="/dashboard/tab1">
@@ -39,8 +39,8 @@ export default async function DashboardLayout({ children }) {
             </div>
 
             {/* Support Tab */}
-            <div className={`${styles.flex_col_tabs} ${styles.under}`}>
-              <h2>Need Help!</h2>
+            <div className={`${styles.flex_col_tabs}`}>
+              <h2>COstum support</h2>
 
               <Link href="/dashboard/support">
                 <svg

@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.8rem 1rem;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #cccccc7a;
+  background-color: #171717;
 }
 
 .btn {
@@ -13,10 +14,12 @@
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+  background-color: #f1f1f1;
+  color: #000;
 }
 
 .header p {
   font-size: 1rem;
-  color: #171717;
+  color: #f1f1f1;
   font-family: "montreal", sans-serif;
 }

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.12.2",
+    "@amcharts/amcharts5-geodata": "^5.1.4",
     "@auth/mongodb-adapter": "^3.9.1",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
