@@ -1,13 +1,21 @@
 import React from "react";
-import { HeaderDashboard } from "@/components/index";
+import { HeaderDashboard, MoroccoMap } from "@/components/index";
+import styles from "./tab.module.css";
 
 const page = () => {
   return (
     <>
       <HeaderDashboard />
-      <h1>Tab 2</h1>
-      <p>This is the content of Tab 1.</p>
-      <p>Here you can add more information or components related to Tab 1.</p>
+      <section className={styles.grid}>
+        {/* Map */}
+        <div className={styles.map}>
+          <MoroccoMap />
+        </div>
+        {/*  */}
+      </section>
+
+      {/* Charts */}
+      <div className={styles.charts}></div>
     </>
   );
 };

@@ -26,6 +26,7 @@
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "recharts": "^2.15.3",
     "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
@@ -33,6 +34,8 @@
     "@tailwindcss/postcss": "^4.1.7",
     "@types/estree": "^1.0.7",
     "@types/json-schema": "^7.0.15",
+    "@types/node": "22.15.21",
+    "@types/react": "19.1.5",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",

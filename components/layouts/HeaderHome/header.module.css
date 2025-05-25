@@ -1,18 +1,19 @@
 .header {
-  width: 80%;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  position: fixed;
+  padding: 1rem 2rem;
+}
 
-  border-radius: 1rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  z-index: 99999;
+.nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav ul li {
+  font-family: "montreal", sans-serif;
+  font-size: 1.1rem;
 }
 
 .cta {

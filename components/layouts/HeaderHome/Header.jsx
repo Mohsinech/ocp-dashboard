@@ -15,14 +15,31 @@ const HeaderHome = () => {
           alt="OPC Group "
         />
       </Link>
+      {/* Navigation Links */}
+      <nav className={styles.nav}>
+        <ul>
+          <li>
+            <a href="#">Features</a>
+          </li>
+          <li>
+            <a href="#">About the project</a>
+          </li>
+          <li>
+            <a href="#">Get started</a>
+          </li>
+        </ul>
+      </nav>
+      {/*  */}
       {/* CTA Button */}
       <div className={styles.cta}>
-        <Button variant="secondary" className={`${styles.cta_btn} bg-white`}>
+        <Button
+          className={`${styles.cta_btn} bg-[#171717] text-[#fff] hover:bg-[#171717]/90`}
+        >
           <Link href="/login">Login</Link>
         </Button>
         <Button
           variant="outline"
-          className={`${styles.cta_btn} border-[#171717] bg-transparent text-[#171717]`}
+          className={`${styles.cta_btn}  bg-transparent text-[#171717] hover:text-[#171717]`}
         >
           <Link href="/signup">Register</Link>
           <svg
