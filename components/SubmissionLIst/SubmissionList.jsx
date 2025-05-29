@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import styles from "./submission.module.css";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function SubmissionsList({ submissions }) {
   const [expandedId, setExpandedId] = useState(null);
@@ -29,80 +31,59 @@ export default function SubmissionsList({ submissions }) {
 
   return (
     <div>
-      {submissions.length === 0 && <p>No submissions found.</p>}
+      {submissions.length === 0 && (
+        <p className={styles.no}>No submissions found.</p>
+      )}
 
       {submissionList.map((submission) => (
-        <div
-          key={submission._id}
-          style={{
-            border: "1px solid #ccc",
-            margin: "10px 0",
-            padding: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          <p>
-            <strong>Name:</strong> {submission.fullName}
-          </p>
-          <p>
-            <strong>Email:</strong> {submission.email}
-          </p>
-          <p>
-            <strong>Role:</strong> {submission.role}
-          </p>
+        <div key={submission._id} className={styles.submissionCard}>
+          <div className={styles.flexDIv}>
+            <p>
+              <span className="text-gray-400">Name:</span> {submission.fullName}
+            </p>
+            <p>
+              <span className="text-gray-400">Email:</span> {submission.email}
+            </p>
+            <p>
+              <span className="text-gray-400">Role:</span>{" "}
+              {submission.profession || "Not provided"}
+            </p>
+          </div>
 
-          <button
-            onClick={() => toggleExpand(submission._id)}
-            style={{ marginBottom: "10px" }}
-          >
-            {expandedId === submission._id
-              ? "Hide Message ▲"
-              : "Show Message ▼"}
-          </button>
-
-          {expandedId === submission._id && (
-            <div
-              style={{
-                marginBottom: "10px",
-                whiteSpace: "pre-wrap",
-                backgroundColor: "#f9f9f9",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
+          <div className={`${styles.flexDIv} my-4`}>
+            <button
+              onClick={() => toggleExpand(submission._id)}
+              className={`${styles.toggleButton} text-gray-400`}
             >
-              <strong>Message:</strong>
-              <p>{submission.message || "No message provided."}</p>
-            </div>
-          )}
+              <span className="text-gray-400">Message:</span>{" "}
+              {expandedId === submission._id
+                ? "Hide Message ︿"
+                : "Show Message ﹀"}
+            </button>
 
-          <button
-            style={{
-              marginRight: "10px",
-              backgroundColor: "green",
-              color: "white",
-              padding: "5px 10px",
-              border: "none",
-              borderRadius: "3px",
-              cursor: "pointer",
-            }}
-            onClick={() => handleAction(submission._id, "approve")}
-          >
-            Approve
-          </button>
+            {expandedId === submission._id && (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className={styles.messageBox}
+                >
+                  <p>{submission.message || "No message provided."}</p>
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
 
-          <button
-            style={{
-              backgroundColor: "red",
-              color: "white",
-              padding: "5px 10px",
-              border: "none",
-              borderRadius: "3px",
-              cursor: "pointer",
-            }}
-            onClick={() => handleAction(submission._id, "reject")}
-          >
-            Reject
-          </button>
+          <div className={styles.btns}>
+            <button onClick={() => handleAction(submission._id, "approve")}>
+              Approve
+            </button>
+
+            <button onClick={() => handleAction(submission._id, "reject")}>
+              Reject
+            </button>
+          </div>
         </div>
       ))}
     </div>

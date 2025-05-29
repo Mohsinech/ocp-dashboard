@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { fetchSubmissionsFromDB } from "@/lib/submissions";
 import SubmissionsList from "@/components/SubmissionLIst/SubmissionList";
 import { HeaderDashboard } from "@/components/index";
+import styles from "./page.module.css";
 
 export default async function submissions() {
   const session = await getServerSession(authOptions);
@@ -15,14 +16,15 @@ export default async function submissions() {
   }
 
   const submissions = await fetchSubmissionsFromDB();
+  console.log(submissions);
 
   return (
     <>
       <HeaderDashboard />
-      <div>
-        <h1>Pending Submissions</h1>
+      <section className={styles.submissions}>
+        <h1>Show all submissions:</h1>
         <SubmissionsList submissions={submissions} />
-      </div>
+      </section>
     </>
   );
 }

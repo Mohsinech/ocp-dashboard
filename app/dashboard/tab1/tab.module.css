@@ -29,8 +29,8 @@
 .charts h1 {
   color: #ccc;
   font-family: "montreal", sans-serif;
-  font-size: 0.7rem;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  text-transform: capitalize;
   letter-spacing: 0.025rem;
 }
 
@@ -40,4 +40,10 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.first_chart h1 {
+  color: #fff;
+  font-family: "montreal", sans-serif;
+  font-size: 2rem;
 }

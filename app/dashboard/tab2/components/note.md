@@ -1,4 +1,4 @@
-"use client";
+<!-- "use client";
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
@@ -26,29 +26,31 @@ import {
 } from "@/components/ui/select";
 import styles from "./chart.module.css";
 
-// Utility to generate dummy data per region
-const generateRegionData = (region, years) => {
-  const data = [];
-  const startDate = new Date("2024-06-01");
-  const totalMonths = years * 12;
-
-  const seed = region ? region.length * 100 : 100; // different seed per region
-
-  for (let i = 0; i < totalMonths; i++) {
-    const date = new Date(startDate);
-    date.setMonth(date.getMonth() + i);
-    const yearMonth = date.toISOString().slice(0, 7);
-
-    data.push({
-      date: yearMonth,
-      desktop: Math.floor(seed + Math.random() * 200),
-      mobile: Math.floor(seed + Math.random() * 300),
-    });
-  }
-
-  return data;
+// ✅ Static data per region
+const regionData = {
+  Morocco: [
+    { date: "2024-06", desktop: 300, mobile: 500 },
+    { date: "2024-07", desktop: 350, mobile: 480 },
+    { date: "2024-08", desktop: 400, mobile: 470 },
+    { date: "2024-09", desktop: 420, mobile: 600 },
+    { date: "2024-10", desktop: 450, mobile: 650 },
+    { date: "2024-11", desktop: 480, mobile: 680 },
+    { date: "2024-12", desktop: 500, mobile: 700 },
+    { date: "2025-01", desktop: 520, mobile: 720 },
+  ],
+  Spain: [
+    { date: "2024-06", desktop: 200, mobile: 300 },
+    { date: "2024-07", desktop: 250, mobile: 320 },
+    { date: "2024-08", desktop: 280, mobile: 350 },
+    { date: "2024-09", desktop: 300, mobile: 400 },
+    { date: "2024-10", desktop: 320, mobile: 420 },
+    { date: "2024-11", desktop: 340, mobile: 450 },
+    { date: "2024-12", desktop: 360, mobile: 470 },
+    { date: "2025-01", desktop: 380, mobile: 490 },
+  ],
 };
 
+// Chart color config
 const chartConfig = {
   visitors: {
     label: "Visitors",
@@ -67,8 +69,9 @@ export function RegionChart({ selectedRegion }) {
   const [timeRange, setTimeRange] = React.useState("1y");
 
   const filteredData = React.useMemo(() => {
-    const years = parseInt(timeRange.replace("y", ""));
-    return generateRegionData(selectedRegion || "Unknown", years);
+    const allData = regionData[selectedRegion] || [];
+    const monthsToShow = parseInt(timeRange.replace("y", "")) * 12;
+    return allData.slice(0, monthsToShow);
   }, [timeRange, selectedRegion]);
 
   return (
@@ -78,31 +81,21 @@ export function RegionChart({ selectedRegion }) {
           <CardTitle className={styles.cardTitle}>
             Visitors - {selectedRegion || "No Region Selected"}
           </CardTitle>
-          <CardDescription className={styles.cardDescription}>
-            (x) vs (x) Analytics in this region
+          <CardDescription>
+            Desktop vs Mobile visits in this region
           </CardDescription>
         </div>
         <div className="ml-auto flex items-center gap-2">
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className={`${styles.range} h-10 w-full `}>
+            <SelectTrigger className="h-8 w-[120px]">
               <SelectValue placeholder="Select range" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem className={styles.item} value="1y">
-                Current Year
-              </SelectItem>
-              <SelectItem className={styles.item} value="2y">
-                Next 2 Years
-              </SelectItem>
-              <SelectItem className={styles.item} value="3y">
-                Next 3 Years
-              </SelectItem>
-              <SelectItem className={styles.item} value="4y">
-                Next 4 Years
-              </SelectItem>
-              <SelectItem className={styles.item} value="5y">
-                Next 5 Years
-              </SelectItem>
+              <SelectItem value="1y">Next 1 Year</SelectItem>
+              <SelectItem value="2y">Next 2 Years</SelectItem>
+              <SelectItem value="3y">Next 3 Years</SelectItem>
+              <SelectItem value="4y">Next 4 Years</SelectItem>
+              <SelectItem value="5y">Next 5 Years</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -144,7 +137,7 @@ export function RegionChart({ selectedRegion }) {
             </AreaChart>
           </ChartContainer>
         ) : (
-          <p className={`${styles.noRegion} text-muted-foreground text-sm`}>
+          <p className="text-muted-foreground text-sm">
             Please select a region on the map to view analytics.
           </p>
         )}
@@ -163,4 +156,4 @@ export function RegionChart({ selectedRegion }) {
       </CardContent>
     </Card>
   );
-}
+} -->

@@ -24,7 +24,7 @@ const Page = () => {
         <h1>* Browse analytics</h1>
 
         <div className={styles.first_chart}>
-          <h1>First Chart</h1>
+          <h1>Region Analytics for {selectedRegion}</h1>
           <RegionChart selectedRegion={selectedRegion} />
         </div>
       </div>
