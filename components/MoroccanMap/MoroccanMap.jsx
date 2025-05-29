@@ -7,14 +7,25 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import styles from "./box.module.css";
 
 const regionDetails = {
-  "Casablanca-Settat": "Casablanca-Settat is a major economic hub in Morocco.",
-  "Rabat-Salé-Kénitra": "The capital region of Morocco.",
-  "Marrakech-Safi": "A famous tourist region.",
+  "Casablanca-Settat": {
+    title: "Casablanca-Settat",
+    description: "Casablanca-Settat is a major economic hub in Morocco.",
+    links: ["Elweed 1", "Elweed 2", "Elweed 3", "Elweed 4"],
+  },
+  "Rabat-Salé-Kénitra": {
+    title: "Rabat-Salé-Kénitra",
+    description: "The capital region of Morocco.",
+    links: ["https://example.com/rabat"],
+  },
+  "Marrakech-Safi": {
+    title: "Marrakech-Safi",
+    description: "A famous tourist region.",
+    links: ["https://example.com/marrakech"],
+  },
 };
 
-const MoroccoMap = () => {
+const MoroccoMap = ({ setSelectedRegion, selectedRegion }) => {
   const chartRef = useRef(null);
-  const [selectedRegion, setSelectedRegion] = useState("Click a region");
 
   useLayoutEffect(() => {
     const root = am5.Root.new("chartdiv");
@@ -24,13 +35,16 @@ const MoroccoMap = () => {
 
     const chart = root.container.children.push(
       am5map.MapChart.new(root, {
-        panX: "none",
-        panY: "none",
-        wheelX: "none",
-        wheelY: "none",
+        panX: "translateX",
+        panY: "translateY",
+        wheelX: "zoomX",
+        wheelY: "zoomY",
         projection: am5map.geoMercator(),
       })
     );
+
+    const zoomControl = am5map.ZoomControl.new(root, {});
+    chart.set("zoomControl", zoomControl);
 
     const polygonSeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
@@ -48,25 +62,43 @@ const MoroccoMap = () => {
       fill: am5.color(0x2b6eeb),
     });
 
-    polygonSeries.mapPolygons.template.events.on("click", function (ev) {
+    polygonSeries.mapPolygons.template.events.on("click", (ev) => {
       const regionName = ev.target.dataItem.dataContext.name;
-      setSelectedRegion(regionName);
+      setSelectedRegion(regionName); // <-- update selected region in parent
+      polygonSeries.zoomToDataItem(ev.target.dataItem);
     });
 
     return () => {
       root.dispose();
     };
-  }, []);
+  }, [setSelectedRegion]);
 
   return (
     <div style={{ display: "flex", gap: "2rem" }}>
       <div id="chartdiv" style={{ width: "60%", height: "550px" }} />
       <div className={styles.detailsBox}>
-        <h2>{selectedRegion}</h2>
+        <h2>
+          Region: {regionDetails[selectedRegion]?.title || selectedRegion}
+        </h2>
         <p>
-          {regionDetails[selectedRegion] ||
+          {regionDetails[selectedRegion]?.description ||
             "No details available for this region."}
         </p>
+
+        <div className={styles.linksBox}>
+          <h3>Data of the Wedan:</h3>
+          {regionDetails[selectedRegion]?.links && (
+            <ul>
+              {regionDetails[selectedRegion].links.map((link, index) => (
+                <li key={index}>
+                  <a href={link} target="_blank" rel="noopener noreferrer">
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );
